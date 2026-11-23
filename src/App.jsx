@@ -4,9 +4,18 @@ import data from "./data";
 import gsap from "gsap";
 
 function App() {
-  const [showCanvas, setShowCanvas] = useState(false);
+  const [showCanvas, setShowCanvas] = useState(() => {
+    return typeof window !== "undefined" && window.location.search.includes("reveal=true");
+  });
   const headingRef = useRef(null);
   const growingSpan = useRef(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("reveal=true")) {
+      document.body.style.backgroundColor = "#fd2c2a";
+      document.body.style.color = "#000000";
+    }
+  }, []);
 
   const toggleExperience = (e) => {
     setShowCanvas((prev) => {
